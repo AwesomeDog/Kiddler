@@ -21,11 +21,16 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Prepare lowercase names
+        run: |
+          echo "OWNER_LOWER=$(echo ${{ github.repository_owner }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+          echo "REPO_LOWER=$(echo ${{ github.event.repository.name }} | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
           context: .
           push: true
           tags: |
-            ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:${{ github.run_number }}
-            ghcr.io/${{ github.repository_owner }}/${{ github.event.repository.name }}:latest
+            ghcr.io/${{ env.OWNER_LOWER }}/${{ env.REPO_LOWER }}:${{ github.run_number }}
+            ghcr.io/${{ env.OWNER_LOWER }}/${{ env.REPO_LOWER }}:latest
