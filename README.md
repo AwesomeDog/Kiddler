@@ -23,7 +23,7 @@ spec:
   - name: existing-container
     image: your-existing-image:tag  # Your original application container
   - name: kiddler
-    image: ghcr.io/AwesomeDog/Kiddler:latest
+    image: ghcr.io/awesomedog/kiddler:latest
     ports:
     - containerPort: 80        # HTTP endpoints (for httpbin-like debugging)
     - containerPort: 8001      # Traffic capture proxy port
